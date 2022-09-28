@@ -1118,6 +1118,12 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
                     general_purpose_flag:(uint16_t)flag
                                     size:(uint16_t)size_filename {
     
+    // attempting unicode encoding
+    NSString * strPath = @(filename);
+    if (strPath) {
+        return strPath;
+    }
+    
     // Respect Language encoding flag only reading filename as UTF-8 when this is set
     // when file entry created on dos system.
     //
@@ -1144,12 +1150,6 @@ BOOL _fileIsSymbolicLink(const unz_file_info *fileInfo);
         if (strPath) {
             return strPath;
         }
-    }
-    
-    // attempting unicode encoding
-    NSString * strPath = @(filename);
-    if (strPath) {
-        return strPath;
     }
     
     // if filename is non-unicode, detect and transform Encoding
